@@ -4,7 +4,7 @@
       <el-col :sm="24" :lg="24">
 
           <h4 class="text-danger">
-            用于软件工程项目实验
+            公寓设备管理业务
           </h4>
 
 

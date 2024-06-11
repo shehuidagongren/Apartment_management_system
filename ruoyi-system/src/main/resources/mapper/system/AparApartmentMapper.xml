@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.AparApartmentMapper">
+    
+    <resultMap type="AparApartment" id="AparApartmentResult">
+        <result property="id"    column="id"    />
+        <result property="apartmentId"    column="apartment_id"    />
+        <result property="unitId"    column="unit_id"    />
+        <result property="floodId"    column="flood_id"    />
+        <result property="roomId"    column="room_id"    />
+        <result property="bedId"    column="bed_id"    />
+        <result property="flag"    column="flag"    />
+        <result property="remark"    column="remark"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectAparApartmentVo">
+        select id, apartment_id, unit_id, flood_id, room_id, bed_id, flag, remark, create_time, update_time from apar_apartment
+    </sql>
+
+    <select id="selectAparApartmentList" parameterType="AparApartment" resultMap="AparApartmentResult">
+        <include refid="selectAparApartmentVo"/>
+        <where>  
+            <if test="apartmentId != null "> and apartment_id = #{apartmentId}</if>
+            <if test="unitId != null "> and unit_id = #{unitId}</if>
+            <if test="floodId != null "> and flood_id = #{floodId}</if>
+            <if test="roomId != null "> and room_id = #{roomId}</if>
+            <if test="bedId != null "> and bed_id = #{bedId}</if>
+            <if test="flag != null "> and flag = #{flag}</if>
+        </where>
+    </select>
+    
+    <select id="selectAparApartmentById" parameterType="Long" resultMap="AparApartmentResult">
+        <include refid="selectAparApartmentVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertAparApartment" parameterType="AparApartment" useGeneratedKeys="true" keyProperty="id">
+        insert into apar_apartment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="apartmentId != null">apartment_id,</if>
+            <if test="unitId != null">unit_id,</if>
+            <if test="floodId != null">flood_id,</if>
+            <if test="roomId != null">room_id,</if>
+            <if test="bedId != null">bed_id,</if>
+            <if test="flag != null">flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="apartmentId != null">#{apartmentId},</if>
+            <if test="unitId != null">#{unitId},</if>
+            <if test="floodId != null">#{floodId},</if>
+            <if test="roomId != null">#{roomId},</if>
+            <if test="bedId != null">#{bedId},</if>
+            <if test="flag != null">#{flag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAparApartment" parameterType="AparApartment">
+        update apar_apartment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="apartmentId != null">apartment_id = #{apartmentId},</if>
+            <if test="unitId != null">unit_id = #{unitId},</if>
+            <if test="floodId != null">flood_id = #{floodId},</if>
+            <if test="roomId != null">room_id = #{roomId},</if>
+            <if test="bedId != null">bed_id = #{bedId},</if>
+            <if test="flag != null">flag = #{flag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAparApartmentById" parameterType="Long">
+        delete from apar_apartment where id = #{id}
+    </delete>
+
+    <delete id="deleteAparApartmentByIds" parameterType="String">
+        delete from apar_apartment where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
